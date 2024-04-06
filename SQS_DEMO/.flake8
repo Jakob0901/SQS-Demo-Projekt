@@ -1,0 +1,28 @@
+[flake8]
+max-line-length = 120
+ignore = E203,W503
+exclude = .git,__pycache__,venv,migrations,dist,build
+
+[isort]
+known_first_party = my_app
+multi_line_output = 3
+include_trailing_comma = True
+force_grid_wrap = 0
+use_parentheses = True
+line_length = 120
+
+[flake8-quotes]
+inline-quotes = double
+multiline-quotes = double
+docstring-quotes = double
+
+[flake8-docstrings]
+ignore = D100,D101,D102,D103,D104,D105,D106,D107,D200,D201,D202,D203,D204,D205,D206,D207,D208,D209,D210,D211,D212,D213,D214,D215,D216,D217,D218,D219,D220,D221,D400,D401,D402,D403,D404,D405,D406,D407,D408,D409,D410,D411,D412,D413,D414,D415,D416,D417
+
+[flake8-import-order]
+format = black
+imports-indent = 4
+
+[flake8-bugbear]
+extend-select = B901,B950
+extend-ignore = E501
