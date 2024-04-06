@@ -1,7 +1,8 @@
+from datetime import datetime, timedelta
+
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from datetime import datetime
 
 Base = declarative_base()
 
@@ -12,7 +13,7 @@ class WeatherData(Base):
     id = Column(Integer, primary_key=True)
     city = Column(String, nullable=False)
     temperature = Column(Float, nullable=False)
-    last_update = Column(DateTime, default=datetime.utcnow)
+    last_update = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     def __repr__(self):
         return f"<WeatherData(city={self.city}, temperature={self.temperature}, last_update={self.last_update})>"
@@ -24,16 +25,23 @@ class Database:
         Base.metadata.create_all(self.engine)
         self.Session = sessionmaker(bind=self.engine)
 
-    def add_weather_data(self, city, temperature):
+    def add_or_update_weather_data(self, city, temperature):
         """
-        Add new weather data to the database.
+        Add new weather data to the database,
+        or update an existing entry if the last update was more than 15 minutes ago.
 
         :param city: The name of the city.
         :param temperature: The temperature in the city.
         """
         session = self.Session()
-        new_data = WeatherData(city=city, temperature=temperature)
-        session.add(new_data)
+        data = session.query(WeatherData).filter_by(city=city).first()
+        if data is None:
+            # No existing data, add new row
+            new_data = WeatherData(city=city, temperature=temperature)
+            session.add(new_data)
+        elif data.last_update < datetime.utcnow() - timedelta(minutes=15):
+            # Existing data is more than 15 minutes old, update it
+            data.temperature = temperature
         session.commit()
         session.close()
 
