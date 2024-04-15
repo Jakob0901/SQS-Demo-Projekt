@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime
 from sqlalchemy.ext.declarative import declarative_base
@@ -14,7 +14,7 @@ class WeatherData(Base):
     id = Column(Integer, primary_key=True)
     city = Column(String, nullable=False)
     temperature = Column(Float, nullable=False)
-    last_update = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    last_update = Column(DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
     def __repr__(self):
         return f"<WeatherData(city={self.city}, temperature={self.temperature}, last_update={self.last_update})>"
@@ -36,7 +36,7 @@ class DatabaseWrapper:
         """
         session = self.Session()
         data = session.query(WeatherData).filter_by(city=city).first()
-        if data is None or data.last_update < datetime.utcnow() - timedelta(minutes=15):
+        if data is None or data.last_update < datetime.now(timezone.utc) - timedelta(minutes=15):
             # No data or data is outdated, get new temperature from API
             current_weather = self.api_wrapper.get_weather_by_city(city)
             temperature = current_weather['temp_c'] # todo verify

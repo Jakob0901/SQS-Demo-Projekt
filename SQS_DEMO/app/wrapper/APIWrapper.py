@@ -4,7 +4,7 @@ import os
 
 class Weather:
     def __init__(self):
-        self.base_url = "http://api.weatherapi.com/v1/current.json"
+        self.base_url = "https://api.weatherapi.com/v1/current.json"
 
         self.api_key = self.__get_api_key()
 
