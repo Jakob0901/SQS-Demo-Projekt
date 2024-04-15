@@ -29,7 +29,8 @@ class DatabaseWrapper:
 
     def get_temperature_by_city(self, city):
         """
-        Get the most recent temperature for a specified city from the database, or from the OpenWeatherMap API if the data is outdated.
+        Get the most recent temperature for a specified city from the database,
+        or from the OpenWeatherMap API if the data is outdated.
 
         :param city: The name of the city.
         :return: The most recent temperature for the city.
@@ -39,7 +40,7 @@ class DatabaseWrapper:
         if data is None or data.last_update < datetime.now(timezone.utc) - timedelta(minutes=15):
             # No data or data is outdated, get new temperature from API
             current_weather = self.api_wrapper.get_weather_by_city(city)
-            temperature = current_weather['temp_c'] # todo verify
+            temperature = current_weather['temp_c']  # todo verify
             if data is None:
                 # No existing data, add new row
                 new_data = WeatherData(city=city, temperature=temperature)

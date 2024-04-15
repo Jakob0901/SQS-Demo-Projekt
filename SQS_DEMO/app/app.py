@@ -1,9 +1,9 @@
-from flask import Flask, jsonify
-from flask_wtf.csrf import CSRFProtect
-
 import os
 
 from wrapper.DatabaseWrapper import DatabaseWrapper
+
+from flask import Flask, jsonify
+from flask_wtf.csrf import CSRFProtect
 
 
 class TemperatureApp:
