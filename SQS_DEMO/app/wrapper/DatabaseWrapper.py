@@ -24,7 +24,7 @@ class DatabaseWrapper:
     def __init__(self, db_path):
         self.engine = create_engine(f'sqlite:///{db_path}')
         Base.metadata.create_all(self.engine)
-        self.Session = sessionmaker(bind=self.engine)
+        self.session = sessionmaker(bind=self.engine)
         self.api_wrapper = Weather()
 
     def get_temperature_by_city(self, city):
@@ -35,8 +35,8 @@ class DatabaseWrapper:
         :param city: The name of the city.
         :return: The most recent temperature for the city.
         """
-        session = self.Session()
-        data = session.query(WeatherData).filter_by(city=city).first()
+        db_session = self.session()
+        data = db_session.query(WeatherData).filter_by(city=city).first()
         if data is None or data.last_update < datetime.now(timezone.utc) - timedelta(minutes=15):
             # No data or data is outdated, get new temperature from API
             current_weather = self.api_wrapper.get_weather_by_city(city)
@@ -44,13 +44,13 @@ class DatabaseWrapper:
             if data is None:
                 # No existing data, add new row
                 new_data = WeatherData(city=city, temperature=temperature)
-                session.add(new_data)
+                db_session.add(new_data)
             else:
                 # Existing data is outdated, update it
                 data.temperature = temperature
-            session.commit()
+            db_session.commit()
         else:
             # Data is up-to-date, use existing temperature
             temperature = data.temperature
-        session.close()
+        db_session.close()
         return temperature
