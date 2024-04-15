@@ -1,14 +1,19 @@
 from flask import Flask, jsonify
 from flask_wtf.csrf import CSRFProtect
 
+import os
+
 from wrapper.DatabaseWrapper import DatabaseWrapper
 
 
 class TemperatureApp:
     def __init__(self, db_path):
         self.app = Flask(__name__)
+        self.app.config['SECRET_KEY'] = os.urandom(24)
+
         self.csrf = CSRFProtect()
         self.csrf.init_app(self.app)
+
         self.db = DatabaseWrapper(db_path)
 
         @self.app.route('/temperature/<city>')
