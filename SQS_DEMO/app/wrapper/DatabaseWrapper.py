@@ -8,6 +8,21 @@ from APIWrapper import Weather
 Base = declarative_base()
 
 
+class DBConfig:
+    def __init__(self, username, password, hostname, port, database_name):
+        self.usr = username
+        self.pwd = password
+        self.hstnm = hostname
+        self.prt = port
+        self.db_nm = database_name
+
+    def get_connection_string(self):
+        return f"postgresql://{self.usr}:{self.pwd}@{self.hstnm}:{self.prt}/{self.db_nm}"
+
+    def __repr__(self):
+        return f"<DBConfig(username={self.usr}, hostname={self.hstnm}, port={self.prt}, database_name={self.db_nm})>"
+
+
 class WeatherData(Base):
     __tablename__ = 'weather_data'
 
@@ -21,8 +36,9 @@ class WeatherData(Base):
 
 
 class DatabaseWrapper:
-    def __init__(self, db_path):
-        self.engine = create_engine(f'sqlite:///{db_path}')
+
+    def __init__(self, config):
+        self.engine = create_engine(config.get_connection_string())
         Base.metadata.create_all(self.engine)
         self.session = sessionmaker(bind=self.engine)
         self.api_wrapper = Weather()
