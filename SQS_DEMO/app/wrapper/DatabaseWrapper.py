@@ -38,7 +38,6 @@ class WeatherData(Base):
 
 class DatabaseWrapper:
 
-
     def __init__(self, config):
         self.engine = create_engine(config.get_connection_string().replace(f"/{config.db_nm}", ""))
         self.session = sessionmaker(bind=self.engine)
