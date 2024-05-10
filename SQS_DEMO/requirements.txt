@@ -40,3 +40,5 @@ uvicorn==0.17.6
 Werkzeug==3.0.3
 wsproto==1.0.0
 zeroconf==0.38.4
+
+SQLAlchemy~=2.0.29

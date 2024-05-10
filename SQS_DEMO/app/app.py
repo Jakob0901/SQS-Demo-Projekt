@@ -7,7 +7,7 @@ from flask_wtf.csrf import CSRFProtect
 
 
 class TemperatureApp:
-    def __init__(self, username, password):
+    def __init__(self, username, password, api_key):
         self.app = Flask(__name__)
         self.app.config["SECRET_KEY"] = os.urandom(24)
 
@@ -20,7 +20,7 @@ class TemperatureApp:
                           port=5432,
                           database_name="SQS_Weather_DB")
 
-        self.db = DatabaseWrapper(config=config)
+        self.db = DatabaseWrapper(config=config, api_key=api_key)
 
         @self.app.route("/temperature/<city>")
         def get_temperature(city):
@@ -32,5 +32,7 @@ class TemperatureApp:
 
 
 if __name__ == "__main__":
-    app = TemperatureApp("SQS_DEMO", "kernschmelze")
+    app = TemperatureApp(os.getenv("postgres_username"),
+                         password=os.getenv("postgres_password"),
+                         api_key=os.getenv("weather_api_key"))
     app.run()

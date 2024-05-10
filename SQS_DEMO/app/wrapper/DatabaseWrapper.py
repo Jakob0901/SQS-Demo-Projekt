@@ -4,6 +4,7 @@ import sqlalchemy.exc
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+
 from .APIWrapper import Weather
 
 Base = declarative_base()
@@ -38,10 +39,10 @@ class WeatherData(Base):
 
 class DatabaseWrapper:
 
-    def __init__(self, config):
+    def __init__(self, config, api_key):
         self.engine = create_engine(config.get_connection_string().replace(f"/{config.db_nm}", ""))
         self.session = sessionmaker(bind=self.engine)
-        self.api_wrapper = Weather()
+        self.api_wrapper = Weather(api_key=api_key)
         self.config = config
 
         # Check if the database exists
@@ -72,7 +73,10 @@ class DatabaseWrapper:
         if data is None or data.last_update < datetime.now(timezone.utc) - timedelta(minutes=15):
             # No data or data is outdated, get new temperature from API
             current_weather = self.api_wrapper.get_weather_by_city(city)
-            temperature = current_weather['temp_c']  # todo verify
+            if current_weather is None:
+                # API request failed, return None
+                return None
+            temperature = current_weather['main']['temp']  # todo add exception handling
             if data is None:
                 # No existing data, add new row
                 new_data = WeatherData(city=city, temperature=temperature)
