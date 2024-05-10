@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
+import sqlalchemy.exc
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -37,11 +38,27 @@ class WeatherData(Base):
 
 class DatabaseWrapper:
 
+
     def __init__(self, config):
-        self.engine = create_engine(config.get_connection_string())
-        Base.metadata.create_all(self.engine)
+        self.engine = create_engine(config.get_connection_string().replace(f"/{config.db_nm}", ""))
         self.session = sessionmaker(bind=self.engine)
         self.api_wrapper = Weather()
+        self.config = config
+
+        # Check if the database exists
+        try:
+            self.engine.connect()
+        except sqlalchemy.exc.OperationalError as e:
+            if "database does not exist" in str(e):
+                # Create the database
+                self.engine.execute("CREATE DATABASE " + config.db_nm)
+                self.engine = create_engine(config.get_connection_string())
+                self.session = sessionmaker(bind=self.engine)
+            else:
+                raise e
+
+        # Create the tables
+        Base.metadata.create_all(self.engine)
 
     def get_temperature_by_city(self, city):
         """
