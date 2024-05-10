@@ -1,0 +1,21 @@
+
+BDD Test - Behave or Radish
+UI Test - Selenium, Cypress, or Puppeteer /Playwright
+Dockerfile lint - Hadolint
+Dockerfile security analyse - Docker Bench for Security
+docker Image analyse - trivy
+performance test - Locust
+security test? - Bandit code analyse / sonstiges?
+Fuzz testing? - Radamsa
+mutation testing? - MutPy
+Rest API Test - 
+
+Unit Test min 85% - unittest
+
+dependency analyse - safety
+Static code analyse - SonarQube
+style guide with - flake8
+
+ZAP Attack proxy
+Dependency Bot
+Arch Unit (einbauen / alternative finden) https://github.com/zyskarch/pytestarch
