@@ -28,7 +28,7 @@ pyelftools==0.28
 pyparsing==3.0.7
 pyserial==3.5
 PySocks==1.7.1
-requests==2.27.1
+requests==2.32.0
 requests-unixsocket==0.3.0
 semantic-version==2.9.0
 sniffio==1.2.0
