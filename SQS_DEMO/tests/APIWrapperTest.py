@@ -1,57 +1,55 @@
-import unittest
-from unittest.mock import patch
-import requests
 from app.wrapper.APIWrapper import Weather
+
+import requests
+import unittest
+import unittest.mock as mock
 
 
 class TestWeather(unittest.TestCase):
     def setUp(self):
-        self.weather = Weather()
+        self.weather = Weather("api_key")
 
-    @patch('requests.get')
+    @mock.patch("requests.get")
     def test_get_weather_by_city(self, mock_get):
-        # Mock response data
-        mock_response = {
-            'location': {
-                'name': 'London',
-                'region': 'City of London, Greater London',
-                'country': 'United Kingdom',
-            },
-            'current': {
-                'temp_c': 15.5,
-                'condition': {
-                    'text': 'Partly cloudy'
-                }
-            }
-        }
-
-        # Set up the mock response
-        mock_get.return_value.json.return_value = mock_response
+        # Test that the correct URL is used to make the API request
+        city = "London"
+        expected_url = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=api_key&units=metric"
         mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = {"test": "data"}
 
-        # Call the method with a test city
-        weather_data = self.weather.get_weather_by_city('London')
+        result = self.weather.get_weather_by_city(city)
 
-        # Check if the method was called with the correct parameters
-        mock_get.assert_called_once_with('https://api.weatherapi.com/v1/current.json',
-                                         params={'q': 'London', 'key': self.weather.api_key})
+        mock_get.assert_called_with(expected_url)
+        self.assertEqual(result, {"test": "data"})
 
-        # Check if the returned data matches the mock response
-        self.assertEqual(weather_data, mock_response)
+    @mock.patch("requests.get")
+    def test_handle_response(self, mock_get):
+        # Test that the correct data is returned for different HTTP status codes
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.json.return_value = {"test": "data"}
+        result = self.weather._handle_response(mock_get.return_value)
+        self.assertEqual(result, {"test": "data"})
 
-    @patch('requests.get')
-    def test_get_weather_by_city_api_error(self, mock_get):
-        # Set up the mock response with an error status code
         mock_get.return_value.status_code = 400
+        result = self.weather._handle_response(mock_get.return_value)
+        self.assertIsNone(result)
 
-        # Call the method with a test city
-        with self.assertRaises(requests.exceptions.HTTPError):
-            self.weather.get_weather_by_city('InvalidCity')
+        mock_get.return_value.status_code = 401
+        result = self.weather._handle_response(mock_get.return_value)
+        self.assertIsNone(result)
 
-        # Check if the method was called with the correct parameters
-        mock_get.assert_called_once_with('https://api.weatherapi.com/v1/current.json',
-                                         params={'q': 'InvalidCity', 'key': self.weather.api_key})
+        mock_get.return_value.status_code = 403
+        result = self.weather._handle_response(mock_get.return_value)
+        self.assertIsNone(result)
+
+        mock_get.return_value.status_code = 404
+        result = self.weather._handle_response(mock_get.return_value)
+        self.assertIsNone(result)
+
+        mock_get.return_value.status_code = 500
+        result = self.weather._handle_response(mock_get.return_value)
+        self.assertIsNone(result)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
