@@ -1,8 +1,7 @@
-from app.wrapper.APIWrapper import Weather
-
-import requests
 import unittest
 import unittest.mock as mock
+
+from app.wrapper.APIWrapper import Weather
 
 
 class TestWeather(unittest.TestCase):

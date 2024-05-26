@@ -10,21 +10,6 @@ from .APIWrapper import Weather
 Base = declarative_base()
 
 
-class DBConfig:
-    def __init__(self, username, password, hostname, port, database_name):
-        self.usr = username
-        self.pwd = password
-        self.hstnm = hostname
-        self.prt = port
-        self.db_nm = database_name
-
-    def get_connection_string(self):
-        return f"postgresql://{self.usr}:{self.pwd}@{self.hstnm}:{self.prt}/{self.db_nm}"
-
-    def __repr__(self):
-        return f"<DBConfig(username={self.usr}, hostname={self.hstnm}, port={self.prt}, database_name={self.db_nm})>"
-
-
 class WeatherData(Base):
     __tablename__ = 'weather_data'
 
@@ -70,7 +55,8 @@ class DatabaseWrapper:
         """
         db_session = self.session()
         data = db_session.query(WeatherData).filter_by(city=city).first()
-        if data is None or data.last_update < datetime.now(timezone.utc) - timedelta(minutes=15):
+        if data is None or (
+                data.last_update.replace(tzinfo=timezone.utc) < datetime.now(timezone.utc) - timedelta(minutes=15)):
             # No data or data is outdated, get new temperature from API
             current_weather = self.api_wrapper.get_weather_by_city(city)
             if current_weather is None:
