@@ -102,6 +102,13 @@ class TestDatabaseWrapper(unittest.TestCase):
         temperature = 20
         last_update = datetime.now(timezone.utc) - timedelta(minutes=5)
 
+        # Mock the API response
+        self.mock_api_wrapper.get_weather_by_city.return_value = {
+            "main": {
+                "temp": temperature
+            }
+        }
+
         # Add up-to-date data to the database
         db_session = self.mock_session()
         new_data = WeatherData(city=city, temperature=temperature, last_update=last_update)
@@ -109,7 +116,8 @@ class TestDatabaseWrapper(unittest.TestCase):
         db_session.commit()
         db_session.close()
 
-        temperature = self.db_wrapper.get_temperature_by_city(city)
+        # Get the temperature using the mock session
+        temperature = self.db_wrapper.get_temperature_by_city(city, db_session=self.mock_session())
         self.assertEqual(temperature, 20)
 
         # Check that the API was not called

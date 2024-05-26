@@ -45,18 +45,21 @@ class DatabaseWrapper:
         # Create the tables
         Base.metadata.create_all(self.engine)
 
-    def get_temperature_by_city(self, city):
+    def get_temperature_by_city(self, city, db_session=None):
         """
         Get the most recent temperature for a specified city from the database,
         or from the OpenWeatherMap API if the data is outdated.
 
         :param city: The name of the city.
+        :param db_session: The session for the database; default None to use the current session
         :return: The most recent temperature for the city.
         """
-        db_session = self.session()
+        if db_session is None:
+            db_session = self.session()
+
         data = db_session.query(WeatherData).filter_by(city=city).first()
-        if data is None or (
-                data.last_update.replace(tzinfo=timezone.utc) < datetime.now(timezone.utc) - timedelta(minutes=15)):
+        if data is None or data.last_update.replace(tzinfo=timezone.utc) < datetime.now(timezone.utc) - timedelta(
+                minutes=15):
             # No data or data is outdated, get new temperature from API
             current_weather = self.api_wrapper.get_weather_by_city(city)
             if current_weather is None:
