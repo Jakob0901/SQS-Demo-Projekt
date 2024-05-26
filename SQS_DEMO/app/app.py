@@ -1,6 +1,7 @@
 import os
 
-from wrapper.DatabaseWrapper import DatabaseWrapper, DBConfig
+from wrapper.DatabaseWrapper import DatabaseWrapper
+from models.DatabaseModel import DBConfig
 
 from flask import Flask, jsonify
 from flask_wtf.csrf import CSRFProtect
