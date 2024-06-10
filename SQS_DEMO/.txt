@@ -19,3 +19,12 @@ style guide with - flake8
 ZAP Attack proxy
 Dependency Bot
 Arch Unit (einbauen / alternative finden) https://github.com/zyskarch/pytestarch
+
+usability test evtl manually
+architekturtest
+
+
+- pyan: A static code analysis tool for Python that can be used to visualize and analyze the structure of a Python project. It can generate various types of graphs (e.g., dependency graphs, import graphs) that can be used to identify potential architectural issues.
+- architect: A Python library that provides a framework for defining and enforcing architectural rules in a Python project. It allows you to define rules using a simple DSL, and then enforce those rules using a command-line tool or a Git pre-commit hook.
+- lizard: A static code analysis tool for Python that can be used to measure the complexity of a Python project. It can generate various types of reports (e.g., function-level complexity, module-level complexity) that can be used to identify potential architectural issues.
+- pyreverse: A static code analysis tool for Python that can be used to generate UML diagrams for a Python project. It can be used to visualize the structure of a project and identify potential architectural issues.

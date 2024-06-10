@@ -1,0 +1,29 @@
+name: Python Mutpy Workflow
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10.14' 
+
+    - name: Install dependencies and mutpy
+      run: |
+        pip install -r requirements.txt
+        pip install mutpy
+
+    - name: Perform mutation testing with mutpy
+      run: |
+        mut.py run --coverage --target my_module --unit-test my_tests --max-mutants 100
+        echo "::set-output name=report::$(mut.py html-report --output-file mutpy-report.html)"

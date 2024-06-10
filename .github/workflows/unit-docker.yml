@@ -1,0 +1,68 @@
+name: Python Docker Workflow
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: docker:20.10.12-github-ubuntu
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10.14'
+
+    - name: Install dependencies
+      run: |
+        cd SQS_DEMO
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        cd SQS_DEMO
+        python -m unittest 
+
+    - name: Build Docker image
+      run: |
+        cd SQS_DEMO
+        docker build -t my-python-app:${{ github.sha }} . # Replace 'my-python-app' with the desired Docker image name
+
+        - name: Login to GitHub Container Registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+  
+    - name: Push Docker image to GitHub Container Registry
+      run: |
+        docker push ghcr.io/${{ github.repository }}:${{ github.sha }} # Replace 'my-python-app' with the desired Docker image name
+
+
+    - name: Set up Trivy
+      uses: aquasecurity/trivy-action@v0.20.0
+      with:
+        trivy_version: "0.52.0"
+  
+    - name: Scan Docker image with Trivy
+      run: |
+        trivy image --format template --template "@contrib/github.tpl" ghcr.io/${{ github.repository }}:${{ github.sha }}
+
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+    - name: Scan for security issues with bandit
+      run: |
+        pip install bandit
+        bandit -r . -f json | tee bandit-report.json
+        echo "::set-output name=report::$(cat bandit-report.json)"     
