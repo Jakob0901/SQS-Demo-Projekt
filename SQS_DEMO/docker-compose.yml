@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: SQS_DEMO
+      POSTGRES_PASSWORD: kernschmelze
+      POSTGRES_DB: SQS_Weather_DB
+    ports:
+      - "5432:5432"

@@ -1,4 +1,4 @@
-# 
+# SQS DEMO Projekt
 
 **Über arc42**
 
@@ -20,21 +20,36 @@ Dokumentation eigener System verwenden Sie besser die *plain* Version.
 
 # Einführung und Ziele
 
-Beschreibt die wesentlichen Anforderungen und treibenden Kräfte, die bei
-der Umsetzung der Softwarearchitektur und Entwicklung des Systems
-berücksichtigt werden müssen.
+Das vorliegende Projekt ist ein Python-basiertes Webanwendung, 
+die als Cache für Webanfragen an den OpenWeatherAPI-Service dient. 
+Es nutzt das Flask-Framework und ist darauf ausgelegt, 
+Qualitätssicherungsmaßnahmen zu demonstrieren.  
 
-Dazu gehören:
+Die wesentlichen Anforderungen und treibenden Kräfte, die bei der 
+Umsetzung der Softwarearchitektur und Entwicklung des Systems 
+berücksichtigt werden, sind wie folgt:
 
--   zugrunde liegende Geschäftsziele,
+-   Zugrunde liegende Geschäftsziele: Das Hauptziel dieses Projekts 
+ist es, die Effizienz von Webanfragen an den OpenWeatherAPI-Service zu verbessern, 
+indem häufig angeforderte Daten zwischengespeichert werden. Dies reduziert die 
+Latenzzeit und reduziert die Last und Kosten auf der genutzten API.
 
--   wesentliche Aufgabenstellungen,
+-   Wesentliche Aufgabenstellungen: Das System muss in der Lage sein, Anfragen 
+zu empfangen, die relevanten Daten aus dem Cache zu extrahieren (falls vorhanden) 
+oder die Anfrage an den OpenWeatherAPI-Service weiterzuleiten, die Antwort zu speichern 
+und an den Benutzer zurückzugeben.
 
--   wesentliche funktionale Anforderungen,
+-   Wesentliche funktionale Anforderungen: Das System muss eine RESTful API 
+bereitstellen, die es Benutzern ermöglicht, Wetterdaten für eine bestimmte Stadt abzurufen. Es muss auch in der Lage sein, die Daten effizient zu cachen und zu aktualisieren. 
 
--   Qualitätsziele für die Architektur und
+-   Qualitätsziele für die Architektur: Die Architektur des Systems muss 
+robust, skalierbar und wartbar sein. Sie muss auch gut dokumentiert sein, 
+um die Qualitätssicherung zu erleichtern.
 
--   relevante Stakeholder und deren Erwartungshaltung.
+-   Relevante Stakeholder und deren Erwartungshaltung: Die relevanten Stakeholder 
+für dieses Projekt sind der Entwickler, der API-Anbieter (OpenWeatherMap) und der Dozent. 
+Die Entwickler und Dozent erwarten eine klare, gut strukturierte und gut 
+dokumentierte Codebasis. Der API-Anbieter erwartet eine effiziente Abfrage von Daten.
 
 ## Aufgabenstellung
 
@@ -122,19 +137,15 @@ Szenarien, geordnet nach Prioritäten.
 
 </div>
 
-Expliziter Überblick über die Stakeholder des Systems – über alle
-Personen, Rollen oder Organisationen –, die
+Expliziter Überblick über die Stakeholder des Systems:
 
--   die Architektur kennen sollten oder
+-   Entwickler, die die Software entwickeln und wartet, dabei übernimmt
+    die Entwickler die Verantwortung für die Implementierung und
+    Wartung des Systems, sowie die Qualitätssicherung der Software.
 
--   von der Architektur überzeugt werden müssen,
+-   Dozent der das Projekt betreut und das Ergebnis bewertet.
 
--   mit der Architektur oder dem Code arbeiten (z.B. Schnittstellen
-    nutzen),
-
--   die Dokumentation der Architektur für ihre eigene Arbeit benötigen,
-
--   Entscheidungen über das System und dessen Entwicklung treffen.
+-   Api-Anbieter (OpenWeatherMap), der die Wetterdaten bereitstellt.
 
 <div class="formalpara-title">
 

@@ -25,7 +25,7 @@ class WeatherData(Base):
 class DatabaseWrapper:
 
     def __init__(self, config, api_key):
-        self.engine = create_engine(config.get_connection_string().replace(f"/{config.db_nm}", ""))
+        self.engine = create_engine(config.get_connection_string())
         self.session = sessionmaker(bind=self.engine)
         self.api_wrapper = Weather(api_key=api_key)
         self.config = config
@@ -36,9 +36,8 @@ class DatabaseWrapper:
         except sqlalchemy.exc.OperationalError as e:
             if "database does not exist" in str(e):
                 # Create the database
-                self.engine.execute("CREATE DATABASE " + config.db_nm)
-                self.engine = create_engine(config.get_connection_string())
-                self.session = sessionmaker(bind=self.engine)
+                engine_without_db = create_engine(config.get_connection_string().replace(f"/{config.db_nm}", ""))
+                engine_without_db.execute("CREATE DATABASE " + config.db_nm)
             else:
                 raise e
 
