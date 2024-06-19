@@ -5,6 +5,7 @@ from models.DatabaseModel import DBConfig
 
 from flask import Flask, jsonify
 from flask_wtf.csrf import CSRFProtect
+from flask import Flask, jsonify, render_template, request
 
 
 class TemperatureApp:

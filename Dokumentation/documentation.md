@@ -68,6 +68,14 @@ Ablageorten).
 
 **Motivation**
 
+Das Ziel des Projektes ist es Qualitätssichernde Masnahmen für Python Projekte zu demonstrieren.
+Dabei wird eine Beispielanwendung geschrieben, die als Cache für die OpenWeatherApi dient.
+Diese wird mit einer einfachen Weboberfläche ergänzt.
+Die Anwendung wird dabei mit verschiedenen Qualitätssichernden Maßnahmen gegen Fehler abgesichert.
+
+# todo Beweggründe für neues System
+# todo use case (Tabelle)
+
 </div>
 
 Aus Sicht der späteren Nutzung ist die Unterstützung einer fachlichen
@@ -92,52 +100,19 @@ der online-Dokumentation (auf Englisch!).
 
 ## Qualitätsziele
 
-<div class="formalpara-title">
+# todo tabelle
 
-**Inhalt**
+Ziel Motivation
 
-</div>
+Sicherheit Wenn das System öffentlich zur Verfügung gestellt wird, können von schädlichen Aktören versuchen das System zu manipullieren. Dies zu unterbinden sollte zu den wichtigsten Zielen bei der Entwicklung eines neues Systems sein.
 
-Die Top-3 bis Top-5 der Qualitätsanforderungen für die Architektur,
-deren Erfüllung oder Einhaltung den maßgeblichen Stakeholdern besonders
-wichtig sind. Gemeint sind hier wirklich Qualitätsziele, die nicht
-unbedingt mit den Zielen des Projekts übereinstimmen. Beachten Sie den
-Unterschied.
+Wartbarkeit Um das System nicht nach kurzer Zeit wieder ersetzen zu müssen, ist eine gute Wartbarkeit wichtig. Weiterhin können Fehler, die den Einsatz des Systems behindern dadurch schneller behoben werden.
 
-Hier ein Überblick möglicher Themen (basierend auf dem ISO 25010
-Standard):
-
-![Kategorien von
-Qualitätsanforderungen](images/01_2_iso-25010-topics-DE.drawio.png)
-
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
-Weil Qualitätsziele grundlegende Architekturentscheidungen oft
-maßgeblich beeinflussen, sollten Sie die für Ihre Stakeholder relevanten
-Qualitätsziele kennen, möglichst konkret und operationalisierbar.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
-
-Tabellarische Darstellung der Qualitätsziele mit möglichst konkreten
-Szenarien, geordnet nach Prioritäten.
+Zuverlässigkeit Das System sollte auch im Produktiveinsatz mit einem möglichst niedrigen Wartungsaufwand genutzt werden können, um die Kosten die es verursacht zu minimieren.
 
 ## Stakeholder
 
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
-
-Expliziter Überblick über die Stakeholder des Systems:
+Überblick über die Stakeholder des Systems:
 
 -   Entwickler, die die Software entwickeln und wartet, dabei übernimmt
     die Entwickler die Verantwortung für die Implementierung und
@@ -147,26 +122,6 @@ Expliziter Überblick über die Stakeholder des Systems:
 
 -   Api-Anbieter (OpenWeatherMap), der die Wetterdaten bereitstellt.
 
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
-Sie sollten die Projektbeteiligten und -betroffenen kennen, sonst
-erleben Sie später im Entwicklungsprozess Überraschungen. Diese
-Stakeholder bestimmen unter anderem Umfang und Detaillierungsgrad der
-von Ihnen zu leistenden Arbeit und Ergebnisse.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
-
-Tabelle mit Rollen- oder Personennamen, sowie deren Erwartungshaltung
-bezüglich der Architektur und deren Dokumentation.
-
 | Rolle        | Kontakt        | Erwartungshaltung |
 |--------------|----------------|-------------------|
 | *\<Rolle-1>* | *\<Kontakt-1>* | *\<Erwartung-1>*  |
@@ -174,33 +129,13 @@ bezüglich der Architektur und deren Dokumentation.
 
 # Randbedingungen
 
-<div class="formalpara-title">
+Deployment als Docker Image: 
 
-**Inhalt**
+Nutzung einer externen API als Datenquelle: Als Datenquelle muss ein externen Anbieter genutzt werden.
 
-</div>
+Auslagern des Datenspeichers auf eine externe Datenbank: Die Daten müssen auf einem Dienst, der auf einem seperaten Dienst läuft, gespeichert werden.
 
-Randbedingungen und Vorgaben, die ihre Freiheiten bezüglich Entwurf,
-Implementierung oder Ihres Entwicklungsprozesses einschränken. Diese
-Randbedingungen gelten manchmal organisations- oder firmenweit über die
-Grenzen einzelner Systeme hinweg.
-
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
-Für eine tragfähige Architektur sollten Sie genau wissen, wo Ihre
-Freiheitsgrade bezüglich der Entwurfsentscheidungen liegen und wo Sie
-Randbedingungen beachten müssen. Sie können Randbedingungen vielleicht
-noch verhandeln, zunächst sind sie aber da.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
+Nutzung von Github: Nutzung von Github als Git-Dienstleister, sowie Github Actions zur implementierung von Pipelines; Das Projekt muss öffentlich sein.
 
 Einfache Tabellen der Randbedingungen mit Erläuterungen. Bei Bedarf
 unterscheiden Sie technische, organisatorische und politische
@@ -208,10 +143,9 @@ Randbedingungen oder übergreifende Konventionen (beispielsweise
 Programmier- oder Versionierungsrichtlinien, Dokumentations- oder
 Namenskonvention).
 
-Siehe [Randbedingungen](https://docs.arc42.org/section-2/) in der
-online-Dokumentation (auf Englisch!).
-
 # Kontextabgrenzung
+
+# todo
 
 <div class="formalpara-title">
 
@@ -293,6 +227,8 @@ Kommunikationsbeziehung, Eingabe, Ausgabe.
 **\<optional: Erläuterung der externen fachlichen Schnittstellen>**
 
 ## Technischer Kontext
+
+# todo
 
 <div class="formalpara-title">
 
@@ -786,104 +722,34 @@ Für jedes Infrastrukturelement kopieren Sie die Struktur aus Ebene 1.
 
 # Querschnittliche Konzepte
 
-<div class="formalpara-title">
+## Fachliche Konzepte
 
-**Inhalt**
+### 
 
-</div>
+## User Experience (UX)
 
-Dieser Abschnitt beschreibt übergreifende, prinzipielle Regelungen und
-Lösungsansätze, die an mehreren Stellen (=*querschnittlich*) relevant
-sind.
+###
 
-Solche Konzepte betreffen oft mehrere Bausteine. Dazu können vielerlei
-Themen gehören, beispielsweise:
+## Sicherheitskonzepte (Safety und Security)
 
--   Modelle, insbesondere fachliche Modelle
+###
 
--   Architektur- oder Entwurfsmuster
+## Architektur- und Entwurfsmuster
 
--   Regeln für den konkreten Einsatz von Technologien
+###
 
--   prinzipielle — meist technische — Festlegungen übergreifender Art
+## Unter-der-Haube
 
--   Implementierungsregeln
+###
 
-<div class="formalpara-title">
+## Entwicklungskonzepte
 
-**Motivation**
+###
 
-</div>
+## Betriebskonzepte
 
-Konzepte bilden die Grundlage für *konzeptionelle Integrität*
-(Konsistenz, Homogenität) der Architektur und damit eine wesentliche
-Grundlage für die innere Qualität Ihrer Systeme.
+###
 
-Manche dieser Themen lassen sich nur schwer als Baustein in der
-Architektur unterbringen (z.B. das Thema „Sicherheit“).
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
-
-Kann vielfältig sein:
-
--   Konzeptpapiere mit beliebiger Gliederung,
-
--   übergreifende Modelle/Szenarien mit Notationen, die Sie auch in den
-    Architektursichten nutzen,
-
--   beispielhafte Implementierung speziell für technische Konzepte,
-
--   Verweise auf „übliche“ Nutzung von Standard-Frameworks
-    (beispielsweise die Nutzung von Hibernate als Object/Relational
-    Mapper).
-
-<div class="formalpara-title">
-
-**Struktur**
-
-</div>
-
-Eine mögliche (nicht aber notwendige!) Untergliederung dieses
-Abschnittes könnte wie folgt aussehen (wobei die Zuordnung von Themen zu
-den Gruppen nicht immer eindeutig ist):
-
--   Fachliche Konzepte
-
--   User Experience (UX)
-
--   Sicherheitskonzepte (Safety und Security)
-
--   Architektur- und Entwurfsmuster
-
--   Unter-der-Haube
-
--   Entwicklungskonzepte
-
--   Betriebskonzepte
-
-![Possible topics for crosscutting
-concepts](images/08-Crosscutting-Concepts-Structure-DE.png)
-
-Siehe [Querschnittliche Konzepte](https://docs.arc42.org/section-8/) in
-der online-Dokumentation (auf Englisch).
-
-## *\<Konzept 1>*
-
-*\<Erklärung>*
-
-## *\<Konzept 2>*
-
-*\<Erklärung>*
-
-…
-
-## *\<Konzept n>*
-
-*\<Erklärung>*
 
 # Architekturentscheidungen
 
