@@ -24,8 +24,18 @@ class TemperatureApp:
 
         self.db = DatabaseWrapper(config=config, api_key=api_key)
 
+        @self.app.route("/")
+        def index():
+            return render_template("index.html")
+
         @self.app.route("/temperature/<city>")
         def get_temperature(city):
+            temperature = self.db.get_temperature_by_city(city)
+            return jsonify({"city": city, "temperature": temperature})
+
+        @self.app.route("/temperature", methods=["POST"])
+        def get_temperature():
+            city = request.form.get("city")
             temperature = self.db.get_temperature_by_city(city)
             return jsonify({"city": city, "temperature": temperature})
 
@@ -34,7 +44,11 @@ class TemperatureApp:
 
 
 if __name__ == "__main__":
-    app = TemperatureApp(os.getenv("postgres_username"),
-                         password=os.getenv("postgres_password"),
-                         api_key=os.getenv("weather_api_key"))
+    #app = TemperatureApp(username=os.getenv("postgres_username"),  # SQS_DEMO
+    #                     password=os.getenv("postgres_password"),  # kermschemelze
+    #                     api_key=os.getenv("1520404916e2e75b075e6550186cdca2"))
+
+    app = TemperatureApp("SQS_DEMO",  # SQS_DEMO
+                         "kernschmelze",  # kermschemelze
+                         api_key="1520404916e2e75b075e6550186cdca2")
     app.run()

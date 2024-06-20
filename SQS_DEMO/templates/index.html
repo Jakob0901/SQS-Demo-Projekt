@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>City Search</title>
+</head>
+<body>
+    <h1>City Search</h1>
+    <form id="searchForm">
+        <label for="cityInput">Enter a city:</label>
+        <input type="text" id="cityInput" name="cityInput">
+        <button type="submit">Search</button>
+    </form>
+    <div id="resultContainer"></div>
+
+    <script>
+        const form = document.getElementById('searchForm');
+        const resultContainer = document.getElementById('resultContainer');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const city = document.getElementById('cityInput').value;
+            const response = await fetch(`/api/city/${city}`);
+            const data = await response.json();
+            resultContainer.innerHTML = `Temperature: ${data.temperature}`;
+        });
+    </script>
+</body>
+</html>
