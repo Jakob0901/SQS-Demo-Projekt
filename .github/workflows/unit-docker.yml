@@ -44,6 +44,7 @@ jobs:
           -Dsonar.projectKey=<your_project_key>
           -Dsonar.sources=.
           -Dsonar.python.coverage.reportPaths=coverage.xml
+          -Dsonar.coverageReportPaths=coverage.xml
 
     - name: Build Docker image
       run: |
