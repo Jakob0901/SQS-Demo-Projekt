@@ -35,7 +35,7 @@ sniffio==1.2.0
 starlette==0.18.0
 tabulate==0.8.9
 typing_extensions==4.7.1
-urllib3==1.26.9
+urllib3==1.26.19
 uvicorn==0.17.6
 Werkzeug==3.0.3
 wsproto==1.0.0
