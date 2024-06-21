@@ -10,7 +10,7 @@ from flask import Flask, jsonify, render_template, request
 
 class TemperatureApp:
     def __init__(self, username, password, api_key):
-        self.app = Flask(__name__)
+        self.app = Flask(__name__, template_folder='../templates')
         self.app.config["SECRET_KEY"] = os.urandom(24)
 
         self.csrf = CSRFProtect()
@@ -34,7 +34,7 @@ class TemperatureApp:
             return jsonify({"city": city, "temperature": temperature})
 
         @self.app.route("/temperature", methods=["POST"])
-        def get_temperature():
+        def post_temperature():
             city = request.form.get("city")
             temperature = self.db.get_temperature_by_city(city)
             return jsonify({"city": city, "temperature": temperature})

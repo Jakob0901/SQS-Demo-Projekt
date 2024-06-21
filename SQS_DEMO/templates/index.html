@@ -19,7 +19,7 @@
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const city = document.getElementById('cityInput').value;
-            const response = await fetch(`/api/city/${city}`);
+            const response = await fetch(`/temperature/${city}`);
             const data = await response.json();
             resultContainer.innerHTML = `Temperature: ${data.temperature}`;
         });

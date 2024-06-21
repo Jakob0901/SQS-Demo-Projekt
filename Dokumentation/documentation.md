@@ -1,23 +1,5 @@
 # SQS DEMO Projekt
 
-**Über arc42**
-
-arc42, das Template zur Dokumentation von Software- und
-Systemarchitekturen.
-
-Template Version 8.2 DE. (basiert auf AsciiDoc Version), Januar 2023
-
-Created, maintained and © by Dr. Peter Hruschka, Dr. Gernot Starke and
-contributors. Siehe <https://arc42.org>.
-
-<div class="note">
-
-Diese Version des Templates enthält Hilfen und Erläuterungen. Sie dient
-der Einarbeitung in arc42 sowie dem Verständnis der Konzepte. Für die
-Dokumentation eigener System verwenden Sie besser die *plain* Version.
-
-</div>
-
 # Einführung und Ziele
 
 Das vorliegende Projekt ist ein Python-basiertes Webanwendung, 
@@ -29,44 +11,34 @@ Die wesentlichen Anforderungen und treibenden Kräfte, die bei der
 Umsetzung der Softwarearchitektur und Entwicklung des Systems 
 berücksichtigt werden, sind wie folgt:
 
--   Zugrunde liegende Geschäftsziele: Das Hauptziel dieses Projekts 
+- Zugrunde liegende Geschäftsziele: Das Hauptziel dieses Projekts 
 ist es, die Effizienz von Webanfragen an den OpenWeatherAPI-Service zu verbessern, 
 indem häufig angeforderte Daten zwischengespeichert werden. Dies reduziert die 
 Latenzzeit und reduziert die Last und Kosten auf der genutzten API.
 
--   Wesentliche Aufgabenstellungen: Das System muss in der Lage sein, Anfragen 
+- Wesentliche Aufgabenstellungen: Das System muss in der Lage sein, Anfragen 
 zu empfangen, die relevanten Daten aus dem Cache zu extrahieren (falls vorhanden) 
 oder die Anfrage an den OpenWeatherAPI-Service weiterzuleiten, die Antwort zu speichern 
 und an den Benutzer zurückzugeben.
 
--   Wesentliche funktionale Anforderungen: Das System muss eine RESTful API 
+- Wesentliche funktionale Anforderungen: Das System muss eine RESTful API 
 bereitstellen, die es Benutzern ermöglicht, Wetterdaten für eine bestimmte Stadt abzurufen. Es muss auch in der Lage sein, die Daten effizient zu cachen und zu aktualisieren. 
 
--   Qualitätsziele für die Architektur: Die Architektur des Systems muss 
+- Qualitätsziele für die Architektur: Die Architektur des Systems muss 
 robust, skalierbar und wartbar sein. Sie muss auch gut dokumentiert sein, 
 um die Qualitätssicherung zu erleichtern.
 
--   Relevante Stakeholder und deren Erwartungshaltung: Die relevanten Stakeholder 
+- Relevante Stakeholder und deren Erwartungshaltung: Die relevanten Stakeholder 
 für dieses Projekt sind der Entwickler, der API-Anbieter (OpenWeatherMap) und der Dozent. 
 Die Entwickler und Dozent erwarten eine klare, gut strukturierte und gut 
 dokumentierte Codebasis. Der API-Anbieter erwartet eine effiziente Abfrage von Daten.
 
 ## Aufgabenstellung
 
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
-
 Kurzbeschreibung der fachlichen Aufgabenstellung, treibenden Kräfte,
 Extrakt (oder Abstract) der Anforderungen. Verweis auf (hoffentlich
 vorliegende) Anforderungsdokumente (mit Versionsbezeichnungen und
 Ablageorten).
-
-<div class="formalpara-title">
-
-**Motivation**
 
 Das Ziel des Projektes ist es Qualitätssichernde Masnahmen für Python Projekte zu demonstrieren.
 Dabei wird eine Beispielanwendung geschrieben, die als Cache für die OpenWeatherApi dient.
@@ -75,18 +47,6 @@ Die Anwendung wird dabei mit verschiedenen Qualitätssichernden Maßnahmen gegen
 
 # todo Beweggründe für neues System
 # todo use case (Tabelle)
-
-</div>
-
-Aus Sicht der späteren Nutzung ist die Unterstützung einer fachlichen
-Aufgabe oder Verbesserung der Qualität der eigentliche Beweggrund, ein
-neues System zu schaffen oder ein bestehendes zu modifizieren.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
 
 Kurze textuelle Beschreibung, eventuell in tabellarischer Use-Case Form.
 Sofern vorhanden, sollte die Aufgabenstellung Verweise auf die
@@ -129,7 +89,7 @@ Zuverlässigkeit Das System sollte auch im Produktiveinsatz mit einem möglichst
 
 # Randbedingungen
 
-Deployment als Docker Image: 
+Deployment als Docker Image
 
 Nutzung einer externen API als Datenquelle: Als Datenquelle muss ein externen Anbieter genutzt werden.
 
@@ -145,13 +105,9 @@ Namenskonvention).
 
 # Kontextabgrenzung
 
-# todo
+# todo tabelle
 
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
+Schnittstelle Ein/Ausgang Verantwortlicher  Technische UmsetzungBeschreibung
 
 Die Kontextabgrenzung grenzt das System gegen alle Kommunikationspartner
 (Nachbarsysteme und Benutzerrollen) ab. Sie legt damit die externen
@@ -162,58 +118,15 @@ Verantwortung übernehmen die Nachbarsysteme?
 Differenzieren Sie fachlichen (Ein- und Ausgaben) und technischen
 Kontext (Kanäle, Protokolle, Hardware), falls nötig.
 
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
-Die fachlichen und technischen Schnittstellen zur Kommunikation gehören
-zu den kritischsten Aspekten eines Systems. Stellen Sie sicher, dass Sie
-diese komplett verstanden haben.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
-
-Verschiedene Optionen:
-
--   Diverse Kontextdiagramme
-
--   Listen von Kommunikationsbeziehungen mit deren Schnittstellen
-
-Siehe [Kontextabgrenzung](https://docs.arc42.org/section-3/) in der
-online-Dokumentation (auf Englisch!).
-
 ## Fachlicher Kontext
-
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
 
 Festlegung **aller** Kommunikationsbeziehungen (Nutzer, IT-Systeme, …)
 mit Erklärung der fachlichen Ein- und Ausgabedaten oder Schnittstellen.
 Zusätzlich (bei Bedarf) fachliche Datenformate oder Protokolle der
 Kommunikation mit den Nachbarsystemen.
 
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
 Alle Beteiligten müssen verstehen, welche fachlichen Informationen mit
 der Umwelt ausgetauscht werden.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
 
 Alle Diagrammarten, die das System als Blackbox darstellen und die
 fachlichen Schnittstellen zu den Nachbarsystemen beschreiben.
@@ -222,41 +135,19 @@ Alternativ oder ergänzend können Sie eine Tabelle verwenden. Der Titel
 gibt den Namen Ihres Systems wieder; die drei Spalten sind:
 Kommunikationsbeziehung, Eingabe, Ausgabe.
 
-**\<Diagramm und/oder Tabelle>**
-
-**\<optional: Erläuterung der externen fachlichen Schnittstellen>**
-
 ## Technischer Kontext
 
 # todo
 
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
-
 Technische Schnittstellen (Kanäle, Übertragungsmedien) zwischen dem
 System und seiner Umwelt. Zusätzlich eine Erklärung (*mapping*), welche
 fachlichen Ein- und Ausgaben über welche technischen Kanäle fließen.
-
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
 
 Viele Stakeholder treffen Architekturentscheidungen auf Basis der
 technischen Schnittstellen des Systems zu seinem Kontext.
 
 Insbesondere bei der Entwicklung von Infrastruktur oder Hardware sind
 diese technischen Schnittstellen durchaus entscheidend.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
 
 Beispielsweise UML Deployment-Diagramme mit den Kanälen zu
 Nachbarsystemen, begleitet von einer Tabelle, die Kanäle auf
@@ -269,16 +160,6 @@ Ein-/Ausgaben abbildet.
 **\<Mapping fachliche auf technische Schnittstellen>**
 
 # Lösungsstrategie
-
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
-
-Kurzer Überblick über die grundlegenden Entscheidungen und
-Lösungsansätze, die Entwurf und Implementierung des Systems prägen.
-Hierzu gehören:
 
 -   Technologieentscheidungen
 
@@ -293,21 +174,9 @@ Hierzu gehören:
     bestimmte Entwicklungsprozesse oder Delegation bestimmter Aufgaben
     an andere Stakeholder.
 
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
 Diese wichtigen Entscheidungen bilden wesentliche „Eckpfeiler“ der
 Architektur. Von ihnen hängen viele weitere Entscheidungen oder
 Implementierungsregeln ab.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
 
 Fassen Sie die zentralen Entwurfsentscheidungen **kurz** zusammen.
 Motivieren Sie, ausgehend von Aufgabenstellung, Qualitätszielen und
@@ -320,12 +189,6 @@ online-Dokumentation (auf Englisch!).
 
 # Bausteinsicht
 
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
-
 Die Bausteinsicht zeigt die statische Zerlegung des Systems in Bausteine
 (Module, Komponenten, Subsysteme, Klassen, Schnittstellen, Pakete,
 Bibliotheken, Frameworks, Schichten, Partitionen, Tiers, Funktionen,
@@ -335,23 +198,11 @@ Makros, Operationen, Datenstrukturen, …) sowie deren Abhängigkeiten
 Diese Sicht sollte in jeder Architekturdokumentation vorhanden sein. In
 der Analogie zum Hausbau bildet die Bausteinsicht den *Grundrissplan*.
 
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
 Behalten Sie den Überblick über den Quellcode, indem Sie die statische
 Struktur des Systems durch Abstraktion verständlich machen.
 
 Damit ermöglichen Sie Kommunikation auf abstrakterer Ebene, ohne zu
 viele Implementierungsdetails offenlegen zu müssen.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
 
 Die Bausteinsicht ist eine hierarchische Sammlung von Blackboxen und
 Whiteboxen (siehe Abbildung unten) und deren Beschreibungen.
@@ -724,66 +575,80 @@ Für jedes Infrastrukturelement kopieren Sie die Struktur aus Ebene 1.
 
 ## Fachliche Konzepte
 
-### 
+{::comment}
+TODO Namen/Definitionen für Begriffe
+{:/comment}
 
 ## User Experience (UX)
 
-###
+### Ergonimie
+
+### User Interface
 
 ## Sicherheitskonzepte (Safety und Security)
 
-###
+### Security
+
+### Safety
 
 ## Architektur- und Entwurfsmuster
 
-###
+### Abstrahierung
+Wrapper
 
-## Unter-der-Haube
+### Cache Aside
 
-###
+### Model-View-Controller
+
+### Time-To-live
+
+## Anwendungsintere Konzepte
+
+### Persistenz
+
+### Exception Handling
 
 ## Entwicklungskonzepte
 
-###
+### Versionkontrolle
+
+### Automatisierung
+
+### Testen
+
+### Bauen
 
 ## Betriebskonzepte
 
-###
+### Cache Strategie
+
+### Modularisierung
+
+### Auslieferung
 
 
 # Architekturentscheidungen
 
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
-
-Wichtige, teure, große oder riskante Architektur- oder
-Entwurfsentscheidungen inklusive der jeweiligen Begründungen. Mit
-"Entscheidungen" meinen wir hier die Auswahl einer von mehreren
-Alternativen unter vorgegebenen Kriterien.
-
-Wägen Sie ab, inwiefern Sie Entscheidungen hier zentral beschreiben,
-oder wo eine lokale Beschreibung (z.B. in der Whitebox-Sicht von
-Bausteinen) sinnvoller ist. Vermeiden Sie Redundanz. Verweisen Sie evtl.
-auf Abschnitt 4, wo schon grundlegende strategische Entscheidungen
-beschrieben wurden.
-
-<div class="formalpara-title">
-
-**Motivation**
-
-</div>
-
-Stakeholder des Systems sollten wichtige Entscheidungen verstehen und
-nachvollziehen können.
-
-<div class="formalpara-title">
-
-**Form**
-
-</div>
+1. Verwendung von Flask als Web-Framework für die Entwicklung der Webanwendung.
+2. Integration einer externen API in die Webanwendung, um Daten abzurufen.
+3. Implementierung eines Caches für die externe API, um die Performance zu verbessern.
+4. Verwendung von PostgreSQL als Datenbank für die persistente Speicherung von Daten.
+5. Nutzung von SQLAlchemy als ORM (Object-Relational Mapping) für die Datenbankinteraktion.
+6. Verwendung von RESTful API-Designprinzipien für die Kommunikation zwischen der Webanwendung und der externen API.
+7. Implementierung von Sicherheitsmaßnahmen wie Authentifizierung und Autorisierung für den Zugriff auf die Webanwendung und die externe API.
+8. Einsatz von Logging und Fehlerbehandlung, um Probleme in der Webanwendung zu identifizieren und zu beheben.
+9. Verwendung von Unit-Tests und Integrationstests, um die Funktionalität der Webanwendung zu überprüfen.
+10. Bereitstellung der Webanwendung auf einer skalierbaren Infrastruktur wie z.B. AWS Elastic Beanstalk oder Kubernetes.
+11. Implementierung von Monitoring und Logging für die Überwachung der Webanwendung und der externen API.
+12. Verwendung von Continuous Integration und Continuous Deployment (CI/CD) für eine automatisierte Bereitstellung und Aktualisierung der Webanwendung.
+13. Einrichtung von Backups und Wiederherstellungsmechanismen für die PostgreSQL-Datenbank, um Datenverlust zu vermeiden.
+14. Implementierung von Caching-Strategien für häufig abgerufene Daten in der PostgreSQL-Datenbank, um die Performance zu verbessern.
+15. Verwendung von Docker zur Containerisierung der Webanwendung und ihrer Abhängigkeiten für eine einfache Bereitstellung und Portabilität.
+16. Einsatz von Load-Balancing und Skalierungstechniken, um die Webanwendung bei hoher Last zu skalieren und die Verfügbarkeit zu gewährleisten.
+17. Verwendung von Git zur Versionskontrolle des Quellcodes der Webanwendung und der Konfigurationsdateien.
+18. Implementierung von automatisierten Tests für die Webanwendung, um die Qualität und Stabilität des Codes sicherzustellen.
+19. Verwendung von Code-Reviews und Peer-Feedback, um die Codequalität und Best Practices in der Entwicklung zu fördern.
+20. Einrichtung von Monitoring und Alarmierung für die Überwachung der Systemleistung und das Erkennen von Problemen in Echtzeit.
 
 Verschiedene Möglichkeiten:
 
@@ -796,9 +661,7 @@ Verschiedene Möglichkeiten:
 
 -   ausführlicher in Form einzelner Unterkapitel je Entscheidung
 
-Siehe [Architekturentscheidungen](https://docs.arc42.org/section-9/) in
-der arc42 Dokumentation (auf Englisch!). Dort finden Sie Links und
-Beispiele zum Thema ADR.
+Siehe [Architekturentscheidungen](https://docs.arc42.org/section-9/) 
 
 # Qualitätsanforderungen
 
@@ -912,36 +775,20 @@ Entweder tabellarisch oder als Freitext.
 
 # Risiken und technische Schulden
 
-<div class="formalpara-title">
-
-**Inhalt**
-
-</div>
+- Mangelnde Fehlerbehandlung: Die Fehlerbehandlung in der Webanwendung ist unzureichend. Es sollten Mechanismen implementiert werden, um Fehler zu erkennen, zu protokollieren und angemessen zu behandeln.
+- Fehlende Internationalisierung: Die Webanwendung unterstützt derzeit nur eine Sprache. Es sollte eine Internationalisierungsfunktion implementiert werden, um die Anwendung für verschiedene Sprachen und Regionen zugänglich zu machen.
+- Mangelnde Skalierbarkeit: Die aktuelle Infrastruktur ist möglicherweise nicht ausreichend skalierbar, um mit steigender Last umzugehen. Es sollte eine Überprüfung und mögliche Anpassung der Infrastruktur vorgenommen werden.
 
 Eine nach Prioritäten geordnete Liste der erkannten Architekturrisiken
 und/oder technischen Schulden.
-
-> Risikomanagement ist Projektmanagement für Erwachsene.
->
-> —  Tim Lister Atlantic Systems Guild
 
 Unter diesem Motto sollten Sie Architekturrisiken und/oder technische
 Schulden gezielt ermitteln, bewerten und Ihren Management-Stakeholdern
 (z.B. Projektleitung, Product-Owner) transparent machen.
 
-<div class="formalpara-title">
-
-**Form**
-
-</div>
-
 Liste oder Tabelle von Risiken und/oder technischen Schulden, eventuell
 mit vorgeschlagenen Maßnahmen zur Risikovermeidung, Risikominimierung
 oder dem Abbau der technischen Schulden.
-
-Siehe [Risiken und technische
-Schulden](https://docs.arc42.org/section-11/) in der
-online-Dokumentation (auf Englisch!).
 
 # Glossar
 
