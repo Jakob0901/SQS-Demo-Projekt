@@ -44,11 +44,7 @@ class TemperatureApp:
 
 
 if __name__ == "__main__":
-    #app = TemperatureApp(username=os.getenv("postgres_username"),  # SQS_DEMO
-    #                     password=os.getenv("postgres_password"),  # kermschemelze
-    #                     api_key=os.getenv("1520404916e2e75b075e6550186cdca2"))
-
-    app = TemperatureApp("SQS_DEMO",  # SQS_DEMO
-                         "kernschmelze",  # kermschemelze
-                         api_key="1520404916e2e75b075e6550186cdca2")
+    app = TemperatureApp(username=os.getenv("postgres_username"), 
+                         password=os.getenv("postgres_password"),  
+                         api_key=os.getenv("owm_api_key")) 
     app.run()
