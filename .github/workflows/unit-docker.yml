@@ -49,7 +49,7 @@ jobs:
     - name: Build Docker image
       run: |
         cd SQS_DEMO
-        docker build -t my-python-app:${{ github.sha }} . # Replace 'my-python-app' with the desired Docker image name
+        docker build -t SQS-DEMO:${{ github.sha }} .
 
         - name: Login to GitHub Container Registry
         run: |
@@ -57,7 +57,7 @@ jobs:
   
     - name: Push Docker image to GitHub Container Registry
       run: |
-        docker push ghcr.io/${{ github.repository }}:${{ github.sha }} # Replace 'my-python-app' with the desired Docker image name
+        docker push ghcr.io/${{ github.repository }}:${{ github.sha }} 
 
 
     - name: Set up Trivy
